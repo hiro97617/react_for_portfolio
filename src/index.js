@@ -1,20 +1,32 @@
+import { toHaveFocus } from '@testing-library/jest-dom/dist/matchers';
 import React from 'react';
 import ReactDOM  from 'react-dom/client';
 import './index.css';
 
+// Reactコンポーネント一つ目：Square
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      //渡された値の表示
+      <button className="square" onClick={() => { this.setState({value:'X'}) }} >
+        {this.state.value}
       </button>
     );
   }
 }
 
+// Reactコンポーネント二つ目：Board
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    // propsとしてvalueという名前の値をSquareに渡せるようにする. props = コンポーネントに渡すデータ(引数)のようなもの
+    return <Square value={i} />;
   }
 
   render() {
@@ -43,6 +55,7 @@ class Board extends React.Component {
   }
 }
 
+// Reactコンポーネント三つ目：Game
 class Game extends React.Component {
   render() {
     return (
